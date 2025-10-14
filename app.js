@@ -107,32 +107,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Lógica para el Header Transformable ---
-    const mainHeader = document.querySelector('header');
+    const header = document.querySelector('header');
     const heroSection = document.querySelector('.hero-section');
 
-    if (mainHeader && heroSection) {
-        const heroStyle = window.getComputedStyle(heroSection);
-        const heroBgImage = heroStyle.getPropertyValue('background-image');
-
-        // Si la propiedad 'background-image' es 'none', significa que no hay imagen.
-        if (heroBgImage === 'none') {
-            mainHeader.classList.add('header-solid-default');
-        }
-    }
-
-
-    const header = document.querySelector('header');
     if (header) {
+        // Si es una página de plan (sin .hero-section), establece el fondo sólido inicial.
+        if (!heroSection) {
+            header.classList.add('header-solid');
+        }
+
         function handleHeaderState() {
             const scrollThreshold = 50;
             if (window.scrollY > scrollThreshold) {
+                // Al hacer scroll, se añade tanto el fondo como el tamaño comprimido.
                 header.classList.add('header-scrolled');
+                header.classList.add('header-solid'); // Aseguramos que el fondo esté en la pág. principal
             } else {
+                // Al volver arriba, se quita el tamaño comprimido.
                 header.classList.remove('header-scrolled');
+                
+                // Y solo quitamos el fondo si estamos en la página principal (la que tiene hero-section).
+                if (heroSection) {
+                    header.classList.remove('header-solid');
+                }
             }
         }
-        window.addEventListener('scroll', handleHeaderState);
+
+        // Ejecutamos la función una vez al cargar para establecer el estado inicial del scroll.
         handleHeaderState();
+        
+        // Y añadimos el "listener" para que siga funcionando el efecto de scroll en todas las páginas.
+        window.addEventListener('scroll', handleHeaderState);
     }
 
     // --- Lógica para el Menú de Hamburguesa ---
@@ -153,4 +158,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+        /* --- Lógica para Animación de Transición de Página --- */
+    // Seleccionamos todos los enlaces internos (que no van a otras webs ni son anclas)
+    const internalLinks = document.querySelectorAll('a[href]:not([href^="http"]):not([href^="#"])');
+
+    internalLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            const destination = this.href;
+
+            // Si el enlace abre en una nueva pestaña, no hacemos nada
+            if (this.target === '_blank') {
+                return;
+            }
+
+            // Prevenimos la navegación inmediata
+            event.preventDefault();
+
+            // Aplicamos la animación de salida
+            document.body.classList.add('fade-out');
+
+            // Esperamos a que la animación termine (500ms) y luego vamos a la nueva página
+            setTimeout(() => {
+                window.location.href = destination;
+            }, 300);
+        });
+    });
 });
