@@ -66,20 +66,23 @@ function setupFormSubmit() {
                 // ¡NUEVO CAMPO AÑADIDO!
                 paginaSolicitud: document.title // Captura el título de la página actual
             })
-            .then((docRef) => {
-                // REEMPLAZAMOS EL ALERT CON EL TOAST DE ÉXITO
-                showToast("¡Gracias! Tus datos han sido enviados.", 'success');
-                contactForm.reset();
-            })
-            .catch((error) => {
-                // REEMPLAZAMOS EL ALERT CON EL TOAST DE ERROR
-                console.error("Error al guardar los datos: ", error);
-                showToast("Hubo un error al enviar tus datos.", 'error');
-            })
-            .finally(() => {
-                // Volvemos a habilitar el botón después del intento
-                submitButton.disabled = false;
-            });
+                .then((docRef) => {
+                    // REEMPLAZAMOS EL ALERT CON EL TOAST DE ÉXITO
+                    showToast("¡Gracias! Tus datos han sido enviados.", 'success');
+                    contactForm.reset();
+
+                    // ¡AÑADE ESTA LÍNEA PARA ENVIAR LA CONVERSIÓN A GOOGLE ANALYTICS!
+                    gtag('event', 'generate_lead', { 'event_category': 'contact', 'event_label': 'form_submission' });
+                })
+                .catch((error) => {
+                    // REEMPLAZAMOS EL ALERT CON EL TOAST DE ERROR
+                    console.error("Error al guardar los datos: ", error);
+                    showToast("Hubo un error al enviar tus datos.", 'error');
+                })
+                .finally(() => {
+                    // Volvemos a habilitar el botón después del intento
+                    submitButton.disabled = false;
+                });
         });
     }
 }

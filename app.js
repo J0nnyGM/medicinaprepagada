@@ -250,6 +250,26 @@ function initializeApp() {
         });
     }
 
+        /* --- LÓGICA PARA SCROLL SUAVE AL FORMULARIO DE CONTACTO --- */
+    // Seleccionamos todos los enlaces que apuntan a la sección de contacto
+    const scrollButtons = document.querySelectorAll('a[href="#contact-section-placeholder"]');
+    
+    scrollButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            // Prevenimos el comportamiento de salto por defecto del enlace
+            event.preventDefault();
+
+            // Buscamos el elemento de la sección de contacto en la página
+            const targetSection = document.getElementById('contact-section-placeholder');
+
+            // Si la sección de contacto existe, nos desplazamos suavemente hacia ella
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 
     setupFormSubmit();
 }
