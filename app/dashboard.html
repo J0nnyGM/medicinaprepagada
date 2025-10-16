@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Clientes</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+    <header class="dashboard-header">
+        <h1>Panel de Administración de Clientes</h1>
+        <button id="logout-button">Cerrar Sesión</button>
+    </header>
+
+    <main class="dashboard-main">
+        <section class="stats-container">
+            <div class="stat-card">
+                <h3>Total de Clientes</h3>
+                <p id="total-clients">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Registros Hoy</h3>
+                <p id="today-clients">0</p>
+            </div>
+        </section>
+
+        <div class="tabs">
+            <button class="tab-button active" data-status="Pendiente">Pendientes</button>
+            <button class="tab-button" data-status="Aprobado">Aprobados</button>
+            <button class="tab-button" data-status="Rechazado">Rechazados</button>
+        </div>
+
+        <section class="clients-table-container">
+            <h2>Lista de Clientes</h2>
+            <table id="clients-table">
+                <thead>
+                    <tr>
+                        <th>Nombre Completo</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Página de Solicitud</th>
+                        <th>Fecha de Registro</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="clients-tbody">
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+
+    <script src="dashboard.js"></script>
+
+    <div id="dashboard-toast" class="toast"></div>
+
+</body>
+
+</html>

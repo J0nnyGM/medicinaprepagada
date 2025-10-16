@@ -8,8 +8,10 @@
 body {
     font-family: Arial, sans-serif;
     color: #333;
-    opacity: 0;  /* Hacemos que la página empiece invisible */
-    animation: fadeIn 0.5s ease-in forwards; /* Aplicamos la animación de entrada */
+    opacity: 0;
+    /* Hacemos que la página empiece invisible */
+    animation: fadeIn 0.5s ease-in forwards;
+    /* Aplicamos la animación de entrada */
 }
 
 header {
@@ -30,14 +32,24 @@ body.fade-out {
 
 /* Definición de la animación de entrada */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Definición de la animación de salida */
 @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
 
 /* ===== ENCABEZADO Y NAVEGACIÓN ===== */
@@ -420,7 +432,8 @@ header.header-scrolled .logo img {
     margin-bottom: 0.8rem;
 }
 
-.plan-card .plan-details { /* <-- ¡El cambio está aquí! */
+.plan-card .plan-details {
+    /* <-- ¡El cambio está aquí! */
     position: absolute;
     top: 0;
     left: 0;
@@ -473,7 +486,8 @@ header.header-scrolled .logo img {
 /* Estilo para la tarjeta del plan en la página de detalle */
 .plan-showcase-card {
     width: 90%;
-    max-width: 500px; /* Un tamaño máximo para que no sea gigante en pantallas grandes */
+    max-width: 500px;
+    /* Un tamaño máximo para que no sea gigante en pantallas grandes */
     height: auto;
     border-radius: 15px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
@@ -743,11 +757,14 @@ form input {
 
 /* La rejilla (grid) dentro del menú */
 .dropdown-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* 3 columnas */
+    display: flex;
+    /* 1. Usamos Flexbox */
+    flex-wrap: wrap;
+    /* 2. Permitimos que los elementos pasen a la siguiente línea */
+    justify-content: center;
+    /* 3. ¡LA MAGIA! Centramos los elementos en cada línea */
     gap: 2rem;
-    /* Espacio entre los elementos */
+    /* 4. Mantenemos el mismo espaciado */
 }
 
 /* Cada elemento individual en la rejilla */
@@ -776,9 +793,10 @@ form input {
 /* Estilos para el título del plan */
 .dropdown-item h4 {
     margin: 0 0 0.5rem 0;
-    font-size: 1.1rem; 
+    font-size: 1.1rem;
     color: #005A9C;
-    font-weight: bold; /* <-- ¡Ajustado para que el texto sea negrilla! */
+    font-weight: bold;
+    /* <-- ¡Ajustado para que el texto sea negrilla! */
 }
 
 /* Estilos para la imagen de la tarjeta */
@@ -821,21 +839,24 @@ form input {
 
 /* Nuevos estilos para el título H1 sobre fondo blanco */
 .plan-details h1 {
-    color: #32c7b5; 
+    color: #32c7b5;
     font-size: 2.5rem;
-    margin-bottom: 1rem; 
-    text-align: center; /* <-- ¡Añadimos esta línea para centrarlo! */
+    margin-bottom: 1rem;
+    text-align: center;
+    /* <-- ¡Añadimos esta línea para centrarlo! */
 }
 
 /* --- Ajuste para los enlaces de los botones "Conocer más" --- */
 
 .plan-link {
-    text-decoration: none; /* Elimina cualquier subrayado del enlace */
+    text-decoration: none;
+    /* Elimina cualquier subrayado del enlace */
 }
 
 /* Nuevo estilo para la palabra "Programa" */
 .plan-details h1 span {
-    color: #005A9C; /* Color azul oscuro para "Programa" */
+    color: #005A9C;
+    /* Color azul oscuro para "Programa" */
 }
 
 .plan-content {
@@ -853,7 +874,8 @@ form input {
     font-size: 1.8rem;
     color: #005A9C;
     margin-bottom: 1.5rem;
-    border-bottom: none; /* Añadimos esta línea para asegurar que no haya borde */
+    border-bottom: none;
+    /* Añadimos esta línea para asegurar que no haya borde */
 }
 
 .features-list {
@@ -1134,13 +1156,16 @@ form input {
 }
 
 .contact-item a {
-    color: inherit; /* Hereda el color blanco del texto padre */
-    text-decoration: none; /* Quita el subrayado */
+    color: inherit;
+    /* Hereda el color blanco del texto padre */
+    text-decoration: none;
+    /* Quita el subrayado */
     transition: opacity 0.3s ease;
 }
 
 .contact-item a:hover {
-    opacity: 0.8; /* Efecto sutil al pasar el ratón */
+    opacity: 0.8;
+    /* Efecto sutil al pasar el ratón */
 }
 
 
@@ -1157,48 +1182,39 @@ form input {
     }
 }
 
-
 /* --- Para Tablets (hasta 992px) --- */
 @media (max-width: 992px) {
 
     /* --- Ajustes Generales --- */
     .navbar {
-        padding: 0 1.5rem; /* Menos padding lateral */
+        padding: 0 1.5rem;
     }
 
-    /* --- Ocultamos la barra superior para simplificar --- */
     .navbar-top-row {
         display: none;
     }
 
     .navbar-content {
-        gap: 0; /* Quitamos el espacio extra */
+        gap: 0;
     }
 
     .nav-links ul {
-        gap: 1.5rem; /* Reducimos el espacio entre enlaces */
+        gap: 1.5rem;
     }
 
-    /* --- Ajustamos el grid de beneficios en la página de plan --- */
     .large-benefits-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-     /* --- Ajustamos el formulario de contacto moderno --- */
     .contact-container-modern {
-        grid-template-columns: 1fr; /* Una sola columna */
+        grid-template-columns: 1fr;
     }
 
-    .contact-info-column {
-        padding: 2.5rem;
-    }
-    
+    .contact-info-column,
     .form-container-modern {
         padding: 2.5rem;
     }
-
 }
-
 
 /* --- Para Celulares (hasta 768px) --- */
 @media (max-width: 768px) {
@@ -1209,13 +1225,13 @@ form input {
         justify-content: space-between;
         padding: 1rem;
     }
-    
-    /* Ocultamos el menú principal y el botón de cotización */
-    .nav-links, .cta-button-outline {
+
+    .nav-links,
+    .cta-button-outline {
         display: none;
     }
 
-    /* Mostramos el menú de hamburguesa */
+    /* --- Botón de Hamburguesa --- */
     .hamburger-menu {
         display: block;
         background: none;
@@ -1223,46 +1239,33 @@ form input {
         color: white;
         font-size: 1.8rem;
         cursor: pointer;
-        z-index: 1001;
+        position: relative;
+        z-index: 1101;
+            text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.7);
+
     }
 
-    /* --- Estilos para el Menú Desplegable (pantalla completa) --- */
+    /* --- Contenedor Principal del Menú Móvil --- */
     .nav-links-mobile {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 3rem;
         background-color: rgba(13, 44, 74, 0.98);
         backdrop-filter: blur(10px);
         position: fixed;
         top: 0;
-        right: -100%; /* Empieza oculto */
+        right: -100%;
         width: 100%;
         height: 100vh;
         transition: right 0.4s ease-in-out;
-        z-index: 999;
+        z-index: 1100;
+        padding: 2rem 1rem;
+        gap: 2rem;
+        overflow-y: auto;
+        /* Habilita el scroll */
     }
 
     .nav-links-mobile.active {
-        right: 0; /* Se muestra al activar */
-    }
-    
-    .nav-links-mobile ul {
-         list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2.5rem;
-    }
-    
-     .nav-links-mobile a {
-        font-size: 1.3rem;
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
+        right: 0;
     }
 
     /* --- Hero Section Móvil --- */
@@ -1289,42 +1292,39 @@ form input {
         bottom: 20px;
     }
 
-    /* --- Carrusel de Tarjetas Móvil --- */
     .plan-card {
         width: 280px;
     }
 
-    /* --- Página de Plan (Oro Plus) --- */
     .plan-content {
-        flex-direction: column-reverse; /* Imagen arriba, texto abajo */
+        flex-direction: column-reverse;
         gap: 2rem;
         padding: 2.5rem 1rem;
     }
-    
+
     .plan-details {
         text-align: center;
     }
 
     .features-list {
-        text-align: left; /* Alineamos el texto de la lista a la izquierda */
+        text-align: left;
         margin: 2rem auto;
         max-width: 400px;
     }
-    
+
     .plan-showcase-card {
         width: 80%;
     }
 
-    /* --- Sección de Contacto --- */
     .contact-section-modern {
         padding: 3rem 1rem;
     }
 
-    .contact-info-column h2, .form-container-modern h3 {
+    .contact-info-column h2,
+    .form-container-modern h3 {
         font-size: 2rem;
     }
-    
-    /* --- Footer Móvil --- */
+
     .footer-container {
         flex-direction: column;
         align-items: center;
@@ -1345,7 +1345,6 @@ form input {
         gap: 1rem;
     }
 
-    /* --- Botón de WhatsApp Móvil --- */
     .whatsapp-float {
         width: 50px;
         height: 50px;
@@ -1358,10 +1357,393 @@ form input {
     }
 }
 
-
 /* --- Para pantallas muy pequeñas (hasta 576px) --- */
 @media (max-width: 576px) {
     .large-benefits-grid {
-        grid-template-columns: 1fr; /* Una sola columna */
+        grid-template-columns: 1fr;
     }
+}
+
+/*
+==============================================
+   ESTILOS PARA MENÚ MÓVIL DE ACORDEÓN
+==============================================
+*/
+
+/* --- OCULTAMOS EL MENÚ MÓVIL EN ESCRITORIO --- */
+@media (min-width: 769px) {
+    .nav-links-mobile {
+        display: none;
+    }
+}
+
+
+/* --- APLICAMOS ESTILOS SOLO EN MÓVILES --- */
+@media (max-width: 768px) {
+    .mobile-menu-logo img {
+        height: 60px;
+    }
+
+    .mobile-menu-accordion {
+        width: 100%;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex; /* Añadimos flexbox */
+        flex-direction: column; /* Apilamos los elementos verticalmente */
+        gap: 1.5rem; /* ¡AÑADE ESTA LÍNEA PARA CREAR EL ESPACIO! */
+    }
+
+    .accordion-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .accordion-header:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .accordion-header span {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #ffffff;
+    }
+
+    .accordion-header i {
+        transition: transform 0.4s ease;
+    }
+
+    .accordion-header.active i {
+        transform: rotate(180deg);
+    }
+
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-out;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 0 0 8px 8px;
+    }
+
+    .accordion-content ul {
+        list-style: none;
+        padding: 0.5rem 0;
+        margin: 0;
+    }
+
+    .accordion-content a {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem 2rem;
+        font-size: 1.1rem;
+        color: #ffffff;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .accordion-content a:hover {
+        background-color: rgba(50, 199, 181, 0.2);
+        transform: translateX(5px);
+    }
+
+    header.menu-open {
+    z-index: 1101;
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    }
+    header.menu-open .logo {
+    visibility: hidden;
+    }   
+    
+}
+
+/*
+==============================================
+   ESTILOS PARA NOTIFICACIÓN TOAST
+==============================================
+*/
+.toast {
+    position: fixed; /* Se mantiene fijo en la pantalla */
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 2000; /* Asegura que esté por encima de todo */
+
+    /* Empieza oculto y fuera de la pantalla */
+    opacity: 0;
+    transform: translateX(120%);
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Clase para mostrar la notificación */
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+}
+
+/* Estilo para notificación de éxito */
+.toast--success {
+    background-color: #28a745; /* Verde */
+    color: white;
+}
+
+/* Estilo para notificación de error */
+.toast--error {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+}
+
+/*
+==============================================
+   ESTILO PARA ENLACE OCULTO EN EL FOOTER
+==============================================
+*/
+.legal-link, .legal-link:hover {
+    color: inherit; /* Hereda el color del texto padre */
+    text-decoration: none; /* Quita el subrayado, incluso al pasar el mouse */
+    cursor: default; /* Muestra el cursor normal, no la mano */
+}
+
+/*
+==============================================
+   ESTILOS PARA VENTANA FLOTANTE (MODAL)
+==============================================
+*/
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+    z-index: 3000; /* Por encima de todo */
+
+    /* Control de visibilidad y animación */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+
+    /* Centrado del contenido */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh; /* Altura máxima para que no ocupe toda la pantalla */
+    overflow-y: auto; /* Scroll si el contenido es muy largo */
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+    /* Animación de entrada */
+    transform: scale(0.9);
+    transition: transform 0.4s ease;
+}
+
+.modal-overlay.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-content h2 {
+    color: #005A9C;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+.modal-content h4 {
+    color: #333;
+    margin-top: 1.5rem;
+}
+.modal-content p, .modal-content li {
+    line-height: 1.7;
+    color: #555;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    color: #aaa;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+.close-button:hover {
+    color: #333;
+}
+
+/*
+==============================================
+   ESTILOS PARA AVISO DE PRIVACIDAD EN FORMULARIO
+==============================================
+*/
+.privacy-notice {
+    font-size: 0.8rem; /* Texto pequeño */
+    color: #555;
+    text-align: center;
+    margin-top: -0.5rem; /* Reduce el espacio con el campo anterior */
+    margin-bottom: 1.5rem; /* Espacio antes del botón */
+}
+
+.privacy-link-form {
+    color: #008ac5; /* Color azul para que se vea como un enlace */
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/*
+==============================================
+   NUEVOS ESTILOS PARA HERO SECTION (REVISADO)
+==============================================
+*/
+
+/* Contenedor principal del contenido del slide */
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el contenido por defecto */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+    height: 100%; /* Asegura que ocupe toda la altura */
+}
+
+/* Para los slides que SÍ tienen tarjeta, los apilamos a la izquierda */
+.hero-content:not(.hero-content--centered) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Alinea todo a la izquierda */
+}
+
+/* Contenedor del texto */
+.hero-text {
+    max-width: 500px;
+}
+
+/* Contenedor de la tarjeta (ya no es necesario) */
+.hero-card {
+    margin-top: 1.5rem; /* Espacio entre el texto y la tarjeta */
+}
+
+.hero-card img {
+    max-width: 100%;
+    width: 350px; /* Tamaño de la tarjeta */
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transform: rotate(0deg); /* Quitamos la rotación */
+}
+
+/* Estilo para slides que solo tienen texto centrado */
+.hero-content--centered {
+    text-align: center;
+}
+.hero-content--centered .hero-text {
+    max-width: 600px;
+}
+
+
+/* --- Ajustes para el texto animado --- */
+.hero-text h1,
+.hero-text p,
+.hero-text .info-button {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.slide.active .hero-text h1 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+}
+.slide.active .hero-text p {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.7s;
+}
+.slide.active .hero-text .info-button {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.9s;
+}
+
+
+/* --- Diseño Responsivo para el nuevo Hero --- */
+@media (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+        align-items: center; /* Centramos en móvil */
+    }
+    .hero-text {
+        max-width: 100%;
+    }
+    .hero-card {
+        margin-top: 2rem;
+        display: none; /* ¡AÑADE ESTA LÍNEA PARA OCULTAR LA TARJETA! */
+
+    }
+    .hero-card img {
+        width: 300px;
+    }
+}
+
+/*
+==============================================
+   CORRECCIÓN DEFINITIVA PARA EL BOTÓN HERO
+==============================================
+*/
+
+/*
+  1. Hacemos que el contenedor del texto sea un flex container en columna.
+  Esto nos da control total sobre el espaciado y previene solapamientos.
+*/
+.hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea los items a la izquierda */
+    gap: 1.5rem; /* Espacio uniforme entre el título, el párrafo y el botón */
+}
+
+/* 2. Reseteamos los márgenes por defecto del título y el párrafo */
+.hero-text h1,
+.hero-text p {
+    margin: 0;
+}
+
+/* 3. Aseguramos que el botón (nuestro enlace <a>) se comporte correctamente */
+.info-button {
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Si el slide está centrado, alineamos los items al centro */
+.hero-content--centered .hero-text {
+    align-items: center;
 }
