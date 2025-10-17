@@ -215,11 +215,12 @@ header.header-scrolled .logo img {
 .hero-section {
     position: relative;
     color: white;
-    height: 70vh;
+    height: 80vh;
     display: flex;
     align-items: center;
     overflow: hidden;
-    
+    z-index: 1;
+    /* <-- AÑADE ESTA LÍNEA */
 }
 
 .hero-slider {
@@ -835,7 +836,7 @@ form input {
 
 /* Ajuste para dar espacio superior a la sección del plan */
 .plan-hero {
-    padding-top: 130px;
+    padding-top: 180px;
 }
 
 /* Nuevos estilos para el título H1 sobre fondo blanco */
@@ -1221,10 +1222,15 @@ form input {
 @media (max-width: 768px) {
 
     /* --- Header y Navbar Móvil --- */
-    .navbar {
+.navbar {
         flex-direction: row;
         justify-content: space-between;
-        padding: 1rem;
+        align-items: center; /* Añadimos esto para asegurar la alineación vertical */
+        padding: 1rem 1.5rem; /* <-- CAMBIA '1rem' POR '1rem 1.5rem' */
+    }
+
+    .navbar-content {
+        display: none;
     }
 
     .nav-links,
@@ -1242,8 +1248,9 @@ form input {
         cursor: pointer;
         position: relative;
         z-index: 1101;
-            text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.7);
-
+        text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.7);
+        pointer-events: auto;
+        /* <-- AÑADE ESTA LÍNEA */
     }
 
     /* --- Contenedor Principal del Menú Móvil --- */
@@ -1278,7 +1285,11 @@ form input {
         height: 80vh;
         text-align: center;
         padding-top: 80px;
-        
+
+    }
+
+    .plan-image {
+        display: none;
     }
 
     .hero-content {
@@ -1361,6 +1372,46 @@ form input {
     .whatsapp-float i {
         font-size: 1.8rem;
     }
+
+    /* 1. Ajustamos el contenedor principal del menú */
+    .nav-links-mobile {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 1rem;
+        /* Eliminamos 'gap' y 'overflow-y' de aquí */
+    }
+
+    /* 2. Definimos el área que tendrá scroll */
+    .mobile-menu-scroll-area {
+        flex-grow: 1; /* Hace que ocupe todo el espacio vertical disponible */
+        overflow-y: auto; /* El scroll SÓLO se aplicará aquí */
+        margin: 2rem 0; /* Genera el espaciado superior e inferior */
+    }
+
+    /* 3. Estilos para el bloque de contacto fijo en la parte inferior */
+    .mobile-contact-info {
+        flex-shrink: 0; /* Evita que el bloque se encoja */
+        padding-top: 1.5rem;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mobile-contact-info h4 {
+        color: #32c7b5;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .mobile-contact-info a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 0.75rem 0;
+        font-size: 1.1rem;
+    }
 }
 
 /* --- Para pantallas muy pequeñas (hasta 576px) --- */
@@ -1395,9 +1446,12 @@ form input {
         list-style: none;
         padding: 0;
         margin: 0;
-        display: flex; /* Añadimos flexbox */
-        flex-direction: column; /* Apilamos los elementos verticalmente */
-        gap: 1.5rem; /* ¡AÑADE ESTA LÍNEA PARA CREAR EL ESPACIO! */
+        display: flex;
+        /* Añadimos flexbox */
+        flex-direction: column;
+        /* Apilamos los elementos verticalmente */
+        gap: 1.5rem;
+        /* ¡AÑADE ESTA LÍNEA PARA CREAR EL ESPACIO! */
     }
 
     .accordion-header {
@@ -1459,15 +1513,18 @@ form input {
     }
 
     header.menu-open {
-    z-index: 1500;
-    background-color: transparent !important;
-    background-image: none !important;
-    box-shadow: none !important;
+        z-index: 1500;
+        background-color: transparent !important;
+        background-image: none !important;
+        box-shadow: none !important;
+        pointer-events: none;
+        /* <-- AÑADE ESTA LÍNEA */
     }
+
     header.menu-open .logo {
-    visibility: hidden;
-    }   
-    
+        visibility: hidden;
+    }
+
 }
 
 /*
@@ -1476,7 +1533,8 @@ form input {
 ==============================================
 */
 .toast {
-    position: fixed; /* Se mantiene fijo en la pantalla */
+    position: fixed;
+    /* Se mantiene fijo en la pantalla */
     top: 20px;
     right: 20px;
     padding: 1rem 1.5rem;
@@ -1485,7 +1543,8 @@ form input {
     display: flex;
     align-items: center;
     gap: 1rem;
-    z-index: 2000; /* Asegura que esté por encima de todo */
+    z-index: 2000;
+    /* Asegura que esté por encima de todo */
 
     /* Empieza oculto y fuera de la pantalla */
     opacity: 0;
@@ -1503,13 +1562,15 @@ form input {
 
 /* Estilo para notificación de éxito */
 .toast--success {
-    background-color: #28a745; /* Verde */
+    background-color: #28a745;
+    /* Verde */
     color: white;
 }
 
 /* Estilo para notificación de error */
 .toast--error {
-    background-color: #dc3545; /* Rojo */
+    background-color: #dc3545;
+    /* Rojo */
     color: white;
 }
 
@@ -1518,10 +1579,14 @@ form input {
    ESTILO PARA ENLACE OCULTO EN EL FOOTER
 ==============================================
 */
-.legal-link, .legal-link:hover {
-    color: inherit; /* Hereda el color del texto padre */
-    text-decoration: none; /* Quita el subrayado, incluso al pasar el mouse */
-    cursor: default; /* Muestra el cursor normal, no la mano */
+.legal-link,
+.legal-link:hover {
+    color: inherit;
+    /* Hereda el color del texto padre */
+    text-decoration: none;
+    /* Quita el subrayado, incluso al pasar el mouse */
+    cursor: default;
+    /* Muestra el cursor normal, no la mano */
 }
 
 /*
@@ -1535,8 +1600,10 @@ form input {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
-    z-index: 3000; /* Por encima de todo */
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Fondo oscuro semitransparente */
+    z-index: 3000;
+    /* Por encima de todo */
 
     /* Control de visibilidad y animación */
     opacity: 0;
@@ -1560,10 +1627,12 @@ form input {
     border-radius: 10px;
     width: 90%;
     max-width: 800px;
-    max-height: 85vh; /* Altura máxima para que no ocupe toda la pantalla */
-    overflow-y: auto; /* Scroll si el contenido es muy largo */
+    max-height: 85vh;
+    /* Altura máxima para que no ocupe toda la pantalla */
+    overflow-y: auto;
+    /* Scroll si el contenido es muy largo */
     position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 
     /* Animación de entrada */
     transform: scale(0.9);
@@ -1579,11 +1648,14 @@ form input {
     margin-top: 0;
     margin-bottom: 1.5rem;
 }
+
 .modal-content h4 {
     color: #333;
     margin-top: 1.5rem;
 }
-.modal-content p, .modal-content li {
+
+.modal-content p,
+.modal-content li {
     line-height: 1.7;
     color: #555;
 }
@@ -1600,6 +1672,7 @@ form input {
     line-height: 1;
     transition: color 0.3s ease;
 }
+
 .close-button:hover {
     color: #333;
 }
@@ -1610,15 +1683,19 @@ form input {
 ==============================================
 */
 .privacy-notice {
-    font-size: 0.8rem; /* Texto pequeño */
+    font-size: 0.8rem;
+    /* Texto pequeño */
     color: #555;
     text-align: center;
-    margin-top: -0.5rem; /* Reduce el espacio con el campo anterior */
-    margin-bottom: 1.5rem; /* Espacio antes del botón */
+    margin-top: -0.5rem;
+    /* Reduce el espacio con el campo anterior */
+    margin-bottom: 1.5rem;
+    /* Espacio antes del botón */
 }
 
 .privacy-link-form {
-    color: #008ac5; /* Color azul para que se vea como un enlace */
+    color: #008ac5;
+    /* Color azul para que se vea como un enlace */
     text-decoration: underline;
     cursor: pointer;
 }
@@ -1633,19 +1710,22 @@ form input {
 .hero-content {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centra el contenido por defecto */
+    justify-content: center;
+    /* Centra el contenido por defecto */
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     gap: 2rem;
-    height: 100%; /* Asegura que ocupe toda la altura */
+    height: 100%;
+    /* Asegura que ocupe toda la altura */
 }
 
 /* Para los slides que SÍ tienen tarjeta, los apilamos a la izquierda */
 .hero-content:not(.hero-content--centered) {
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start; /* Alinea todo a la izquierda */
+    align-items: flex-start;
+    /* Alinea todo a la izquierda */
 }
 
 /* Contenedor del texto */
@@ -1655,21 +1735,25 @@ form input {
 
 /* Contenedor de la tarjeta (ya no es necesario) */
 .hero-card {
-    margin-top: 1.5rem; /* Espacio entre el texto y la tarjeta */
+    margin-top: 1.5rem;
+    /* Espacio entre el texto y la tarjeta */
 }
 
 .hero-card img {
     max-width: 100%;
-    width: 350px; /* Tamaño de la tarjeta */
+    width: 350px;
+    /* Tamaño de la tarjeta */
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    transform: rotate(0deg); /* Quitamos la rotación */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transform: rotate(0deg);
+    /* Quitamos la rotación */
 }
 
 /* Estilo para slides que solo tienen texto centrado */
 .hero-content--centered {
     text-align: center;
 }
+
 .hero-content--centered .hero-text {
     max-width: 600px;
 }
@@ -1683,16 +1767,19 @@ form input {
     transform: translateY(40px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
+
 .slide.active .hero-text h1 {
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.5s;
 }
+
 .slide.active .hero-text p {
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.7s;
 }
+
 .slide.active .hero-text .info-button {
     opacity: 1;
     transform: translateY(0);
@@ -1705,16 +1792,21 @@ form input {
     .hero-content {
         flex-direction: column;
         text-align: center;
-        align-items: center; /* Centramos en móvil */
+        align-items: center;
+        /* Centramos en móvil */
     }
+
     .hero-text {
         max-width: 100%;
     }
+
     .hero-card {
         margin-top: 2rem;
-        display: none; /* ¡AÑADE ESTA LÍNEA PARA OCULTAR LA TARJETA! */
+        display: none;
+        /* <-- AÑADE ESTA LÍNEA */
 
     }
+
     .hero-card img {
         width: 300px;
     }
@@ -1733,8 +1825,10 @@ form input {
 .hero-text {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Alinea los items a la izquierda */
-    gap: 1.5rem; /* Espacio uniforme entre el título, el párrafo y el botón */
+    align-items: flex-start;
+    /* Alinea los items a la izquierda */
+    gap: 1.5rem;
+    /* Espacio uniforme entre el título, el párrafo y el botón */
 }
 
 /* 2. Reseteamos los márgenes por defecto del título y el párrafo */
@@ -1760,11 +1854,14 @@ form input {
 ==============================================
 */
 .footer-column a {
-    color: inherit; /* Hereda el color del texto padre (blanco/gris) */
-    text-decoration: none; /* Quita el subrayado */
+    color: inherit;
+    /* Hereda el color del texto padre (blanco/gris) */
+    text-decoration: none;
+    /* Quita el subrayado */
     transition: opacity 0.3s ease;
 }
 
 .footer-column a:hover {
-    opacity: 0.8; /* Un efecto sutil al pasar el cursor */
+    opacity: 0.8;
+    /* Un efecto sutil al pasar el cursor */
 }
