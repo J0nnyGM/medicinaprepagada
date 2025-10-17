@@ -16,6 +16,21 @@
 
         gtag('config', 'G-TK2X8F5EPS');
     </script>
+
+    <script>
+    function gtag_report_conversion(url) {
+    var callback = function () {
+        if (typeof(url) != 'undefined') {
+        window.location = url;
+        }
+    };
+    gtag('event', 'conversion', {
+        'send_to': 'AW-743917118/vpkDCNqLzq4bEL6M3eIC',
+        'event_callback': callback
+    });
+    return false;
+    }
+    </script>
 </head>
 
 <body id="home-page">
