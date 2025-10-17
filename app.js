@@ -1,6 +1,6 @@
 // ¡NUEVO CÓDIGO AÑADIDO!
 // Este detector se asegura de que la página sea visible cuando se usa el botón "Atrás" del navegador.
-window.addEventListener('pageshow', function(event) {
+window.addEventListener('pageshow', function (event) {
     if (event.persisted) {
         document.body.classList.remove('fade-out');
     }
@@ -58,11 +58,31 @@ function initializeApp() {
             }
 
             slideRightButton.addEventListener('click', () => {
+                // OBTENEMOS EL PUNTO MEDIO (INICIO DE LOS CLONES)
+                const loopThreshold = container.scrollWidth / 2;
+
+                // COMPROBAMOS SI YA ESTAMOS EN LA SECCIÓN CLONADA
+                if (container.scrollLeft >= loopThreshold) {
+                    // SI ES ASÍ, SALTAMOS AL INICIO INSTANTÁNEAMENTE
+                    container.scrollLeft -= loopThreshold;
+                }
+
+                // AHORA HACEMOS EL SCROLL SUAVE
                 container.scrollBy({ left: scrollAmountPerCard, behavior: 'smooth' });
                 handleManualScroll();
             });
 
             slideLeftButton.addEventListener('click', () => {
+                // OBTENEMOS EL PUNTO MEDIO
+                const loopThreshold = container.scrollWidth / 2;
+
+                // COMPROBAMOS SI ESTAMOS EN EL INICIO DEL TODO
+                if (container.scrollLeft < scrollAmountPerCard) {
+                    // SI ES ASÍ, SALTAMOS A LA SECCIÓN CLONADA INSTANTÁNEAMENTE
+                    container.scrollLeft += loopThreshold;
+                }
+
+                // AHORA HACEMOS EL SCROLL SUAVE
                 container.scrollBy({ left: -scrollAmountPerCard, behavior: 'smooth' });
                 handleManualScroll();
             });
@@ -134,7 +154,7 @@ function initializeApp() {
             } else {
                 // Al estar arriba, quitamos el efecto de encogimiento.
                 header.classList.remove('header-scrolled');
-                
+
                 // Y decidimos sobre la transparencia basándonos en si es la página principal.
                 if (isHomePage) {
                     // SOLO en la página principal, el header es transparente arriba.
@@ -148,7 +168,7 @@ function initializeApp() {
 
         // Establecemos el estado correcto tan pronto como se carga el script.
         handleHeaderState();
-        
+
         // Y lo actualizamos en cada evento de scroll.
         window.addEventListener('scroll', handleHeaderState);
     }
@@ -181,7 +201,7 @@ function initializeApp() {
     accordionHeaders.forEach(header => {
         header.addEventListener('click', () => {
             const content = header.nextElementSibling;
-            
+
             accordionHeaders.forEach(otherHeader => {
                 if (otherHeader !== header) {
                     otherHeader.classList.remove('active');
@@ -198,43 +218,43 @@ function initializeApp() {
         });
     });
 
-/* --- Lógica para Animación de Transición de Página (VERSIÓN CORREGIDA) --- */
-// Seleccionamos todos los enlaces que tienen un href
-const allLinks = document.querySelectorAll('a[href]');
+    /* --- Lógica para Animación de Transición de Página (VERSIÓN CORREGIDA) --- */
+    // Seleccionamos todos los enlaces que tienen un href
+    const allLinks = document.querySelectorAll('a[href]');
 
-allLinks.forEach(link => {
-    link.addEventListener('click', function(event) {
-        const destination = this.getAttribute('href');
-        const isExternal = this.hostname !== window.location.hostname;
+    allLinks.forEach(link => {
+        link.addEventListener('click', function (event) {
+            const destination = this.getAttribute('href');
+            const isExternal = this.hostname !== window.location.hostname;
 
-        // Condición para IGNORAR la animación y dejar que el navegador actúe normalmente.
-        // Se ignora si:
-        // 1. El enlace abre en una nueva pestaña.
-        // 2. Es un enlace externo.
-        // 3. Es un enlace de ancla, teléfono, correo, etc.
-        // 4. Es un enlace especial para modales o scrolls.
-        if (
-            this.target === '_blank' ||
-            isExternal ||
-            destination.startsWith('#') ||
-            destination.startsWith('mailto:') ||
-            destination.startsWith('tel:') ||
-            this.classList.contains('privacy-link') ||
-            this.classList.contains('privacy-link-form')
-        ) {
-            return; // No hacemos nada, dejamos que el enlace funcione por defecto.
-        }
+            // Condición para IGNORAR la animación y dejar que el navegador actúe normalmente.
+            // Se ignora si:
+            // 1. El enlace abre en una nueva pestaña.
+            // 2. Es un enlace externo.
+            // 3. Es un enlace de ancla, teléfono, correo, etc.
+            // 4. Es un enlace especial para modales o scrolls.
+            if (
+                this.target === '_blank' ||
+                isExternal ||
+                destination.startsWith('#') ||
+                destination.startsWith('mailto:') ||
+                destination.startsWith('tel:') ||
+                this.classList.contains('privacy-link') ||
+                this.classList.contains('privacy-link-form')
+            ) {
+                return; // No hacemos nada, dejamos que el enlace funcione por defecto.
+            }
 
-        // Si llegamos aquí, es un enlace interno que navega a otra página.
-        // Entonces, aplicamos la animación.
-        event.preventDefault();
-        document.body.classList.add('fade-out');
-        
-        setTimeout(() => {
-            window.location.href = destination;
-        }, 300);
+            // Si llegamos aquí, es un enlace interno que navega a otra página.
+            // Entonces, aplicamos la animación.
+            event.preventDefault();
+            document.body.classList.add('fade-out');
+
+            setTimeout(() => {
+                window.location.href = destination;
+            }, 300);
+        });
     });
-});
 
     /* --- LÓGICA PARA LA VENTANA FLOTANTE (MODAL) DE PRIVACIDAD --- */
     const privacyLinks = document.querySelectorAll('.privacy-link, .privacy-link-form');
@@ -242,7 +262,7 @@ allLinks.forEach(link => {
     const closeModalButton = document.getElementById('close-modal-button');
 
     if (privacyLinks.length > 0 && privacyModal && closeModalButton) {
-        
+
         privacyLinks.forEach(link => {
             link.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -263,7 +283,7 @@ allLinks.forEach(link => {
 
     /* --- LÓGICA PARA SCROLL SUAVE AL FORMULARIO DE CONTACTO --- */
     const scrollButtons = document.querySelectorAll('a[href="#contact-section-placeholder"]');
-    
+
     scrollButtons.forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault();
@@ -275,9 +295,9 @@ allLinks.forEach(link => {
             }
         });
     });
-    
 
-    
+
+
     /* --- INICIAMOS LA LÓGICA DEL FORMULARIO DE FIREBASE --- */
     setupFormSubmit();
 

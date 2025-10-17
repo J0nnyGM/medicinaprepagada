@@ -786,6 +786,7 @@ form input {
     padding: 0.5rem;
     border-radius: 6px;
     transition: background-color 0.2s ease;
+    width: 141px; /* <-- AÑADE ESTA LÍNEA */
 }
 
 .dropdown-item:hover {
