@@ -219,6 +219,7 @@ header.header-scrolled .logo img {
     display: flex;
     align-items: center;
     overflow: hidden;
+    
 }
 
 .hero-slider {
@@ -1268,11 +1269,16 @@ form input {
         right: 0;
     }
 
+    .slide {
+        background-position: 5% 50%;
+    }
+
     /* --- Hero Section Móvil --- */
     .hero-section {
         height: 80vh;
         text-align: center;
         padding-top: 80px;
+        
     }
 
     .hero-content {
@@ -1453,7 +1459,7 @@ form input {
     }
 
     header.menu-open {
-    z-index: 1101;
+    z-index: 1500;
     background-color: transparent !important;
     background-image: none !important;
     box-shadow: none !important;
@@ -1746,4 +1752,19 @@ form input {
 /* Si el slide está centrado, alineamos los items al centro */
 .hero-content--centered .hero-text {
     align-items: center;
+}
+
+/*
+==============================================
+   ESTILOS PARA ENLACES EN EL FOOTER
+==============================================
+*/
+.footer-column a {
+    color: inherit; /* Hereda el color del texto padre (blanco/gris) */
+    text-decoration: none; /* Quita el subrayado */
+    transition: opacity 0.3s ease;
+}
+
+.footer-column a:hover {
+    opacity: 0.8; /* Un efecto sutil al pasar el cursor */
 }

@@ -1,3 +1,12 @@
+// ¡NUEVO CÓDIGO AÑADIDO!
+// Este detector se asegura de que la página sea visible cuando se usa el botón "Atrás" del navegador.
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        document.body.classList.remove('fade-out');
+    }
+});
+
+
 // Se envuelve todo el código en una función que podemos llamar más tarde.
 function initializeApp() {
 
@@ -125,7 +134,7 @@ function initializeApp() {
             } else {
                 // Al estar arriba, quitamos el efecto de encogimiento.
                 header.classList.remove('header-scrolled');
-
+                
                 // Y decidimos sobre la transparencia basándonos en si es la página principal.
                 if (isHomePage) {
                     // SOLO en la página principal, el header es transparente arriba.
@@ -139,7 +148,7 @@ function initializeApp() {
 
         // Establecemos el estado correcto tan pronto como se carga el script.
         handleHeaderState();
-
+        
         // Y lo actualizamos en cada evento de scroll.
         window.addEventListener('scroll', handleHeaderState);
     }
@@ -147,12 +156,13 @@ function initializeApp() {
     // --- Lógica para el Menú de Hamburguesa ---
     const hamburger = document.querySelector('.hamburger-menu');
     const navLinksMobile = document.querySelector('.nav-links-mobile');
+    //const header = document.querySelector('header'); // Ya está definido arriba
 
     // Asegurarnos de que todos los elementos existen
     if (hamburger && navLinksMobile && header) {
         hamburger.addEventListener('click', () => {
             navLinksMobile.classList.toggle('active');
-            header.classList.toggle('menu-open'); // 2. Añadimos/quitamos la clase en el header
+            header.classList.toggle('menu-open'); // Añadimos/quitamos la clase en el header
 
             const icon = hamburger.querySelector('i');
             if (navLinksMobile.classList.contains('active')) {
@@ -170,10 +180,8 @@ function initializeApp() {
 
     accordionHeaders.forEach(header => {
         header.addEventListener('click', () => {
-            // El contenido a mostrar/ocultar es el siguiente elemento hermano
             const content = header.nextElementSibling;
-
-            // Cerramos cualquier otro acordeón que esté abierto
+            
             accordionHeaders.forEach(otherHeader => {
                 if (otherHeader !== header) {
                     otherHeader.classList.remove('active');
@@ -181,68 +189,71 @@ function initializeApp() {
                 }
             });
 
-            // Abrimos o cerramos el acordeón actual
             header.classList.toggle('active');
             if (header.classList.contains('active')) {
-                // Para abrir, le damos la altura necesaria para mostrar su contenido
                 content.style.maxHeight = content.scrollHeight + 'px';
             } else {
-                // Para cerrar, lo colapsamos
                 content.style.maxHeight = null;
             }
         });
     });
 
-    /* --- Lógica para Animación de Transición de Página --- */
-    // Seleccionamos todos los enlaces internos (que no van a otras webs ni son anclas)
-    const internalLinks = document.querySelectorAll('a[href]:not([href^="http"]):not([href^="#"])');
+/* --- Lógica para Animación de Transición de Página (VERSIÓN CORREGIDA) --- */
+// Seleccionamos todos los enlaces que tienen un href
+const allLinks = document.querySelectorAll('a[href]');
 
-    internalLinks.forEach(link => {
-        link.addEventListener('click', function (event) {
-            const destination = this.href;
+allLinks.forEach(link => {
+    link.addEventListener('click', function(event) {
+        const destination = this.getAttribute('href');
+        const isExternal = this.hostname !== window.location.hostname;
 
-            // Si el enlace abre en una nueva pestaña, no hacemos nada
-            if (this.target === '_blank') {
-                return;
-            }
+        // Condición para IGNORAR la animación y dejar que el navegador actúe normalmente.
+        // Se ignora si:
+        // 1. El enlace abre en una nueva pestaña.
+        // 2. Es un enlace externo.
+        // 3. Es un enlace de ancla, teléfono, correo, etc.
+        // 4. Es un enlace especial para modales o scrolls.
+        if (
+            this.target === '_blank' ||
+            isExternal ||
+            destination.startsWith('#') ||
+            destination.startsWith('mailto:') ||
+            destination.startsWith('tel:') ||
+            this.classList.contains('privacy-link') ||
+            this.classList.contains('privacy-link-form')
+        ) {
+            return; // No hacemos nada, dejamos que el enlace funcione por defecto.
+        }
 
-            // Prevenimos la navegación inmediata
-            event.preventDefault();
-
-            // Aplicamos la animación de salida
-            document.body.classList.add('fade-out');
-
-            // Esperamos a que la animación termine (300ms) y luego vamos a la nueva página
-            setTimeout(() => {
-                window.location.href = destination;
-            }, 300);
-        });
+        // Si llegamos aquí, es un enlace interno que navega a otra página.
+        // Entonces, aplicamos la animación.
+        event.preventDefault();
+        document.body.classList.add('fade-out');
+        
+        setTimeout(() => {
+            window.location.href = destination;
+        }, 300);
     });
+});
 
     /* --- LÓGICA PARA LA VENTANA FLOTANTE (MODAL) DE PRIVACIDAD --- */
-    // Seleccionamos TODOS los enlaces que deben abrir el modal
     const privacyLinks = document.querySelectorAll('.privacy-link, .privacy-link-form');
     const privacyModal = document.getElementById('privacy-modal');
     const closeModalButton = document.getElementById('close-modal-button');
 
-    // Comprobamos que existan los enlaces y los elementos del modal
-    // Usamos privacyLinks.length > 0 porque querySelectorAll siempre devuelve una lista
     if (privacyLinks.length > 0 && privacyModal && closeModalButton) {
-
-        // Abrir el modal desde cualquiera de los enlaces
+        
         privacyLinks.forEach(link => {
             link.addEventListener('click', (event) => {
-                event.preventDefault(); // Evita que el enlace navegue
+                event.preventDefault();
                 privacyModal.classList.add('show');
             });
         });
 
-        // Cerrar con el botón 'X'
         closeModalButton.addEventListener('click', () => {
             privacyModal.classList.remove('show');
         });
 
-        // Cerrar haciendo clic en el fondo oscuro
         privacyModal.addEventListener('click', (event) => {
             if (event.target === privacyModal) {
                 privacyModal.classList.remove('show');
@@ -250,19 +261,13 @@ function initializeApp() {
         });
     }
 
-        /* --- LÓGICA PARA SCROLL SUAVE AL FORMULARIO DE CONTACTO --- */
-    // Seleccionamos todos los enlaces que apuntan a la sección de contacto
+    /* --- LÓGICA PARA SCROLL SUAVE AL FORMULARIO DE CONTACTO --- */
     const scrollButtons = document.querySelectorAll('a[href="#contact-section-placeholder"]');
     
     scrollButtons.forEach(button => {
         button.addEventListener('click', function (event) {
-            // Prevenimos el comportamiento de salto por defecto del enlace
             event.preventDefault();
-
-            // Buscamos el elemento de la sección de contacto en la página
             const targetSection = document.getElementById('contact-section-placeholder');
-
-            // Si la sección de contacto existe, nos desplazamos suavemente hacia ella
             if (targetSection) {
                 targetSection.scrollIntoView({
                     behavior: 'smooth'
@@ -270,6 +275,10 @@ function initializeApp() {
             }
         });
     });
+    
 
+    
+    /* --- INICIAMOS LA LÓGICA DEL FORMULARIO DE FIREBASE --- */
     setupFormSubmit();
-}
+
+} // Cierre de initializeApp
