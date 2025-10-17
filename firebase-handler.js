@@ -67,12 +67,14 @@ function setupFormSubmit() {
                 paginaSolicitud: document.title // Captura el título de la página actual
             })
                 .then((docRef) => {
-                    // REEMPLAZAMOS EL ALERT CON EL TOAST DE ÉXITO
                     showToast("¡Gracias! Tus datos han sido enviados.", 'success');
                     contactForm.reset();
 
-                    // ¡AÑADE ESTA LÍNEA PARA ENVIAR LA CONVERSIÓN A GOOGLE ANALYTICS!
+                    // Evento para Google Analytics
                     gtag('event', 'generate_lead', { 'event_category': 'contact', 'event_label': 'form_submission' });
+
+                    // ¡AÑADE ESTA LÍNEA PARA ENVIAR LA CONVERSIÓN A GOOGLE ADS!
+                    gtag_report_conversion();
                 })
                 .catch((error) => {
                     // REEMPLAZAMOS EL ALERT CON EL TOAST DE ERROR
